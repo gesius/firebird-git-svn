@@ -6,7 +6,13 @@
 
 /// The Win32 implementation of the path_utils abstraction.
 
+#if defined(__MINGW32__)
+const char PathUtils::dir_sep = '/';
+const char alt_sep_dir = '\\';
+#else
 const char PathUtils::dir_sep = '\\';
+const char alt_sep_dir = '/';
+#endif
 const char* PathUtils::up_dir_link = "..";
 const char PathUtils::dir_list_sep = ';';
 
@@ -155,7 +161,7 @@ bool PathUtils::isRelative(const Firebird::PathName& path)
 	if (path.length() > 0)
 	{
 		const char ds = hasDriveLetter(path) ? path[2] : path[0];
-		return ds != PathUtils::dir_sep && ds != '/';
+		return ds != PathUtils::dir_sep && ds != alt_sep_dir;
 	}
 	return true;
 }
@@ -168,7 +174,7 @@ void PathUtils::splitPrefix(Firebird::PathName& path, Firebird::PathName& prefix
 		prefix = path.substr(0, 2);
 		path.erase(0, 2);
 	}
-	if (path.hasData() && (path[0] == PathUtils::dir_sep || path[0] == '/'))
+	if (path.hasData() && (path[0] == PathUtils::dir_sep || path[0] == alt_sep_dir))
 	{
 		prefix += path[0];
 		path.erase(0, 1);

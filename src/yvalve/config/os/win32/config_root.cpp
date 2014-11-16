@@ -28,6 +28,7 @@
 #include "fb_types.h"
 #include "../../../../common/classes/fb_string.h"
 #include "../../../../common/dllinst.h"
+#include "../../../../common/pathtools.h"
 #include "../../../../yvalve/config/os/config_root.h"
 
 using Firebird::PathName;
@@ -107,7 +108,7 @@ void ConfigRoot::osConfigInstallDir()
 	if (install_dir.isEmpty())
 	{
 		// As a last resort get it from the default install directory
-		install_dir = FB_PREFIX;
+		install_dir = single_path_relocation(FB_BINDIR,FB_PREFIX);
 	}
 
 	PathUtils::ensureSeparator(install_dir);
