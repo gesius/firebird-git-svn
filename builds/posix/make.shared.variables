@@ -67,6 +67,7 @@ AllObjects += $(Remote_Common) $(Remote_Server) $(Remote_Client)
 Engine_Objects:= $(call dirObjects,jrd) $(call dirObjects,dsql) $(call dirObjects,jrd/extds) \
 				 $(call dirObjects,jrd/recsrc) $(call dirObjects,jrd/trace) \
 				 $(call makeObjects,lock,lock.cpp)
+Engine_Objects:= $(filter-out $(call makeObjects,jrd/$(PLATFORM_PATH),ibinitdll.cpp), $(Engine_Objects))
 
 AllObjects += $(Engine_Objects)
 
