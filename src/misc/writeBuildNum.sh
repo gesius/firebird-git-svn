@@ -96,6 +96,10 @@ createMakeVersion() {
 
 OdsH="${Root}/src/jrd/ods.h"
 Mini="/tmp/miniods.h"
+if [ -n $MSYSTEM ]
+  then
+    Mini=$(cygpath -wm $Mini)
+fi
 TestCpp="/tmp/test.cpp"
 AOut="/tmp/a.out"
 
