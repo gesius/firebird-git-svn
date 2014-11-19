@@ -1874,7 +1874,7 @@ static void wsaExitHandler(void*)
 }
 
 
-static int fork(SOCKET old_handle, USHORT flag)
+static int fork(SOCKET old_handle, DWORD flag)
 {
 /**************************************
  *
@@ -1931,7 +1931,7 @@ static int fork(SOCKET old_handle, USHORT flag)
 
 THREAD_ENTRY_DECLARE forkThread(THREAD_ENTRY_PARAM arg)
 {
-	const USHORT flag = (USHORT) arg;
+	const DWORD flag = (uintptr_t) arg;
 
 	while (!INET_shutting_down)
 	{
