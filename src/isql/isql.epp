@@ -7054,7 +7054,7 @@ static unsigned print_item(TEXT** s, const IsqlVar* var, const unsigned length)
 				    break;
 				}
 
-#if defined(MINGW)
+#if defined(__MINGW32__)
 				if (value == 0)
 				{
 					sprintf(p, "% #*.*g ", length, (int) MIN(8, (length - 6)) - 1, value);
@@ -7130,7 +7130,7 @@ static unsigned print_item(TEXT** s, const IsqlVar* var, const unsigned length)
 				}
 				else
 				{
-#if defined(MINGW)
+#if defined(__MINGW32__)
 					if (value == 0)
 					{
 						sprintf(p, "% #*.*g ", length, (int) MIN(16, (length - 7)) - 1, value);

@@ -50,7 +50,7 @@
 
 #endif // UNIX
 
-#if defined(WIN_NT) && !defined(MINGW)
+#if defined(WIN_NT) && !defined(__MINGW32__)
 #include <excpt.h>
 
 #define START_CHECK_FOR_EXCEPTIONS(err)	{					\

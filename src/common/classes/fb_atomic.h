@@ -99,7 +99,7 @@ public:
 	}
 
 protected:
-#ifndef MINGW
+#ifndef __MINGW32__
 	volatile
 #endif
 		counter_type counter;
