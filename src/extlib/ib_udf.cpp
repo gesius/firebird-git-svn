@@ -50,10 +50,12 @@ extern "C"
 #else
 #define exception_type __exception
 #endif
+#ifndef matherr
 int MATHERR(struct exception_type*)
 {
 	return 1;
 }
+#endif
 #undef exception_type
 #endif /* SOLARIS */
 #endif //__ICC
