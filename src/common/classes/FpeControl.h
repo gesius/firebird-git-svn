@@ -217,7 +217,7 @@ private:
 
 
 // getting a portable isinf() is harder than you would expect
-#ifdef WIN_NT
+#if defined(WIN_NT) && !defined(__MINGW32__)
 inline bool isinf(double x)
 {
 	return (!_finite (x) && !isnan(x));
