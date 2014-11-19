@@ -1226,7 +1226,7 @@ void API_ROUTINE gds__log(const TEXT* text, ...)
 #endif
 }
 
-void API_ROUTINE gds__print_pool(MemoryPool* pool, const TEXT* text, ...)
+void gds__print_pool(MemoryPool* pool, const TEXT* text, ...)
 {
 /**************************************
  *
