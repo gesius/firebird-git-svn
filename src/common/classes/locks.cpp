@@ -28,7 +28,7 @@
 #include "../../include/firebird.h"
 #include "../../jrd/common.h"
 
-#if defined(WIN_NT)
+#if defined(WIN_NT) && !defined(__MINGW64_VERSION_MAJOR)
 // minimum win32 version: win98 / winnt4 SP3
 #define _WIN32_WINNT 0x0403
 #endif
