@@ -52,7 +52,7 @@ AllObjects += $(YValve_Objects)
 
 
 # Remote
-Remote_Common:= $(call dirObjects,remote) $(call dirObjects,auth/SecureRemotePassword)
+Remote_Common:= $(call dirObjects,remote) $(call dirObjects,auth/SecureRemotePassword) $(call dirObjects,auth/trusted)
 Remote_Server:= $(call dirObjects,remote/server) $(call dirObjects,auth/SecureRemotePassword/server)
 Remote_Client:= $(call dirObjects,remote/client) $(call dirObjects,auth/SecureRemotePassword/client) \
 				$(call makeObjects,auth/SecurityDatabase,LegacyClient.cpp) \
