@@ -31,7 +31,7 @@ PLATFORM_PATH=os/win32
 
 OS_SPECIFIC_Files=thd_priority.cpp
 
-OS_ServerFiles= os/win32/srvr_w32 os/win32/window.cpp os/win32/chop.cpp os/win32/property.cpp os/win32/cntl.cpp 
+OS_ServerFiles= os/win32/srvr_w32.cpp os/win32/window.cpp os/win32/chop.cpp os/win32/property.cpp os/win32/cntl.cpp 
 
 # Override link command for implicit stdc++ linking
 LIB_LINK=$(LD)
