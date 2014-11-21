@@ -269,7 +269,7 @@ int WINAPI WinMain(HINSTANCE hThisInst, HINSTANCE /*hPrevInst*/, LPSTR lpszArgs,
 		else if (server_flag & SRVR_wnet)
 			port = WNET_reconnect(connection_handle, status_vector);
 		else if (server_flag & SRVR_xnet)
-			port = XNET_reconnect((ULONG) connection_handle, status_vector);
+			port = XNET_reconnect((ULONG_PTR) connection_handle, status_vector);
 
 		if (port) {
 			service_connection(port);
