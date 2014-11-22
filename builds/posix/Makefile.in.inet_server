@@ -40,6 +40,9 @@ include     $(ROOT)/gen/make.shared.variables
 
 SERVER_Files = server_stub.cpp 
 SERVER_Sources = $(addprefix remote/, $(SERVER_Files))
+ifeq ($(PLATFORM),win32)
+SERVER_Sources += utilities/nbackup/nbkMain.cpp common/UtilSvc.cpp
+endif
 SERVER_Objects = $(addprefix $(OBJ)/, $(addsuffix .o, $(basename $(SERVER_Sources))))
 
 AllObjects = $(SERVER_Objects)
