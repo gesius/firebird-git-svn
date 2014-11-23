@@ -54,8 +54,8 @@ Dependencies = $(AllObjects:.o=.d)
 #     but we must ensure it's existance
 fb_inet_server : $(LIBFBEMBED_SO) $(FB_CLASSIC_SERVER)
 
-$(FB_CLASSIC_SERVER):	$(SERVER_Objects)
-	$(EXE_LINK) $(LINK_EMPTY_SYMBOLS) $(LINK_OPTS) $^ -o $@ $(FBEMBED_LINK) $(LIB_GUI) $(LINK_LIBS)
+$(FB_CLASSIC_SERVER):	$(SERVER_Objects) $(COMMON_Objects) $(CLUMPLETS_Objects) $(FBCONFIG_Objects) $(OS_SPECIFIC_Objects) $(DSQL_Objects) $(BURP_Objects) $(ALICE_Objects) $(LOCK_Objects) $(INTERFACE_Objects) $(NBACKUP_SERVER_Objects) $(NTRACE_SERVER_Objects) $(SECURITY_Objects) $(JRD_Objects)
+	$(EXE_LINK) $(LINK_EMPTY_SYMBOLS) $(LINK_OPTS) $^ -o $@ $(FBEMBED_LINK) $(LIB_GUI) $(ICU_LIBS) $(LINK_LIBS)
 
 include $(ROOT)/gen/make.shared.targets
 

@@ -59,8 +59,8 @@ $(OS_SPECIFIC_Objects)
 
 fb_smp_server:	$(FB_DAEMON)
 
-$(FB_DAEMON):	$(SERVER_Objects)
-	$(EXE_LINK) $(LINK_EMPTY_SYMBOLS) $(LINK_OPTS) $^ -o $@ $(FBEMBED_LINK) $(LINK_LIBS)
+$(FB_DAEMON):	$(SERVER_Objects) $(DSQL_Objects) $(BURP_Objects) $(ALICE_Objects) $(JRD_Objects) $(LOCK_Objects) $(INTERFACE_Objects) $(SECURITY_Objects) $(NBACKUP_SERVER_Objects) $(NTRACE_SERVER_Objects)
+	$(EXE_LINK) $(LINK_EMPTY_SYMBOLS) $(LINK_OPTS) $^ -o $@ $(FBEMBED_LINK) $(LIB_GUI) $(LINK_LIBS) $(ICU_LIBS)
 
 AllObjects = $(SERVER_Objects)
 
