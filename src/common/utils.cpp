@@ -43,6 +43,7 @@
 #include "../common/utils_proto.h"
 #include "../common/classes/locks.h"
 #include "../common/classes/init.h"
+#include "../common/pathtools.h"
 #include "../jrd/constants.h"
 #include "../jrd/os/path_utils.h"
 #include "../jrd/os/fbsyslog.h"
@@ -929,9 +930,23 @@ Firebird::PathName getPrefix(FB_DIR prefType, const char* name)
 
 #ifndef BOOT_BUILD
 	const char* configDir[] = {
-		FB_BINDIR, FB_SBINDIR, FB_CONFDIR, FB_LIBDIR, FB_INCDIR, FB_DOCDIR, FB_UDFDIR, FB_SAMPLEDIR,
-		FB_SAMPLEDBDIR, FB_HELPDIR, FB_INTLDIR, FB_MISCDIR, FB_SECDBDIR, FB_MSGDIR, FB_LOGDIR,
-		FB_GUARDDIR, FB_PLUGDIR
+		single_path_relocation(FB_BINDIR,FB_BINDIR),
+		single_path_relocation(FB_BINDIR,FB_SBINDIR),
+		single_path_relocation(FB_BINDIR,FB_CONFDIR),
+		single_path_relocation(FB_BINDIR,FB_LIBDIR),
+		single_path_relocation(FB_BINDIR,FB_INCDIR),
+		single_path_relocation(FB_BINDIR,FB_DOCDIR),
+		single_path_relocation(FB_BINDIR,FB_UDFDIR),
+		single_path_relocation(FB_BINDIR,FB_SAMPLEDIR),
+		single_path_relocation(FB_BINDIR,FB_SAMPLEDBDIR),
+		single_path_relocation(FB_BINDIR,FB_HELPDIR),
+		single_path_relocation(FB_BINDIR,FB_INTLDIR),
+		single_path_relocation(FB_BINDIR,FB_MISCDIR),
+		single_path_relocation(FB_BINDIR,FB_SECDBDIR),
+		single_path_relocation(FB_BINDIR,FB_MSGDIR),
+		single_path_relocation(FB_BINDIR,FB_LOGDIR),
+		single_path_relocation(FB_BINDIR,FB_GUARDDIR),
+		single_path_relocation(FB_BINDIR,FB_PLUGDIR)
 	};
 
 	fb_assert(FB_NELEM(configDir) == FB_DIR_LAST);

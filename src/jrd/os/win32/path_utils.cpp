@@ -4,8 +4,11 @@
 #include <io.h> // _access
 
 /// The Win32 implementation of the path_utils abstraction.
-
+#if defined(__MINGW32__)
+const char PathUtils::dir_sep = '/';
+#else
 const char PathUtils::dir_sep = '\\';
+#endif
 const char* PathUtils::up_dir_link = "..";
 
 class Win32DirItr : public PathUtils::dir_iterator

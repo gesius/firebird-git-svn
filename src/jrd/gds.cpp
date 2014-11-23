@@ -56,6 +56,7 @@
 #include "../common/classes/timestamp.h"
 #include "../common/classes/init.h"
 #include "../common/classes/TempFile.h"
+#include "../common/pathtools.h"
 #include "../common/utils_proto.h"
 
 #ifdef HAVE_UNISTD_H
@@ -3604,13 +3605,13 @@ public:
 		{
 			prefix = Config::getRootDirectory();
 			if (prefix.isEmpty() && !GetProgramFilesDir(prefix))
-				prefix = FB_CONFDIR[0] ? FB_CONFDIR : FB_PREFIX;
+				prefix = FB_CONFDIR[0] ? single_path_relocation(FB_BINDIR,FB_CONFDIR) : single_path_relocation(FB_BINDIR,FB_PREFIX);
 		}
 		catch (Firebird::fatal_exception&)
 		{
 			// CVC: Presumably here we failed because the config file can't be located.
 			if (!GetProgramFilesDir(prefix))
-				prefix = FB_CONFDIR[0] ? FB_CONFDIR : FB_PREFIX;
+				prefix = FB_CONFDIR[0] ? single_path_relocation(FB_BINDIR,FB_CONFDIR) : single_path_relocation(FB_BINDIR,FB_PREFIX);
 		}
 		prefix.copyTo(fb_prefix_val, sizeof(fb_prefix_val));
 		fb_prefix = fb_prefix_val;
@@ -3693,7 +3694,7 @@ public:
 		Firebird::PathName msgPrefix;
 		if (!fb_utils::readenv(FB_MSG_ENV, msgPrefix))
 		{
-			msgPrefix = FB_MSGDIR[0] ? FB_MSGDIR : prefix;
+			msgPrefix = FB_MSGDIR[0] ? single_path_relocation(FB_BINDIR,FB_MSGDIR) : prefix;
 		}
 		msgPrefix.copyTo(fb_prefix_msg_val, sizeof(fb_prefix_msg_val));
 		fb_prefix_msg = fb_prefix_msg_val;

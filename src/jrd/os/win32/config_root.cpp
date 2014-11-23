@@ -28,6 +28,7 @@
 #include "fb_types.h"
 #include "../../../common/classes/fb_string.h"
 #include "../../../common/dllinst.h"
+#include "../../../common/pathtools.h"
 
 #include "../jrd/os/config_root.h"
 #include "../utilities/install/registry.h"
@@ -88,7 +89,7 @@ bool getBinFromHInstance(PathName& root)
 void ConfigRoot::osConfigRoot()
 {
 	// check the registry first
-#if defined(SUPERCLIENT)
+#if defined(SUPERCLIENT) && !defined(__MINGW32__)
 	if (getRootFromRegistry(root_dir))
 	{
 		addSlash();
@@ -125,7 +126,7 @@ void ConfigRoot::osConfigRoot()
 	}
 
 	// As a last resort get it from the default install directory
-	root_dir = FB_PREFIX;
+	root_dir = single_path_relocation(FB_BINDIR,FB_PREFIX);
 }
 
 void ConfigRoot::osConfigInstallDir()
@@ -159,5 +160,5 @@ void ConfigRoot::osConfigInstallDir()
 	}
 
 	// As a last resort get it from the default install directory
-	install_dir = FB_PREFIX;
+	install_dir = single_path_relocation(FB_BINDIR,FB_PREFIX);
 }
