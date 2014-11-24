@@ -107,6 +107,11 @@ RTTI_FLAG:= -fno-rtti
 IsDeveloper = @DEVEL_FLG@
 
 CpuType=@CPU_TYPE@
+ifeq ($(CpuType), x86_64)
+  BITNESS_SUFFIX := 64
+else
+  BITNESS_SUFFIX := 32
+endif
 PLATFORM=@PLATFORM@
 SFIO_EXAMPLES=@SFIO_EXAMPLES@
 
@@ -218,7 +223,7 @@ vpath %.dll $(BIN)
 #
 
 #LibraryFileName=libfbclient
-LibraryFileName=libfbclient
+LibraryFileName=$(LIB_PREFIX)fbclient
 LibraryFullName=$(LibraryFileName).${SHRLIB_EXT}.${FirebirdVersion}
 LibrarySoName=$(LibraryFileName).${SHRLIB_EXT}.2
 LibraryBaseName=$(LibraryFileName).${SHRLIB_EXT}
@@ -229,7 +234,7 @@ LIBFIREBIRD_BASENAME = $(LIB)/$(LibrarySoName)
 
 # The firebird engine library name
 
-EngineFileName=libEngine${OdsVersion}
+EngineFileName=$(LIB_PREFIX)Engine${OdsVersion}
 EngineSoName=$(EngineFileName).${SHRLIB_EXT}
 ENGINE_SONAME = $(PLUGINS)/$(EngineSoName)
 
@@ -290,6 +295,7 @@ else
 endif
 LIB_PATH_OPTS = $(call LIB_LINK_RPATH,lib) $(call LIB_LINK_RPATH,intl)
 LIB_LINK_SONAME= -Wl,-soname,$(1)
+LIB_LINK_IMPLIB=
 LIB_LINK_MAPFILE= -Wl,--version-script,$(1)
 FIREBIRD_LIBRARY_LINK= -L$(LIB) -lfbclient $(MATHLIB)
 
@@ -304,7 +310,7 @@ LINK_UDF = $(LIB_LINK) $(LIB_LINK_OPTIONS) $(call LIB_LINK_SONAME,$(1).$(SHRLIB_
 LINK_UDF_LIBS = $(THR_LIBS) -L$(LIB) -lib_util $(SO_LINK_LIBS)
 
 LINK_IB_UTIL = $(LIB_LINK) $(LINK_IBUTIL_SYMBOLS) $(LIB_LINK_OPTIONS) $(UNDEF_FLAGS)\
- $(call LIB_LINK_SONAME,$(IbUtilLibraryName)) $(call LIB_LINK_RPATH,lib)
+ $(call LIB_LINK_SONAME,$(IbUtilLibraryName)) $(call LIB_LINK_RPATH,lib) $(call LIB_LINK_IMPLIB,$(LIB)/lib$(IbUtilLibraryName).a)
 LINK_IB_UTIL_LIBS = $(THR_LIBS)
 
 LINK_INTL = $(LIB_LINK) $(LINK_FBINTL_SYMBOLS) $(LIB_LINK_OPTIONS) $(UNDEF_FLAGS)\
@@ -316,7 +322,7 @@ LINK_TRACE = $(LIB_LINK) $(LINK_PLUGIN_SYMBOLS) $(LIB_LINK_OPTIONS) $(UNDEF_FLAG
 LINK_TRACE_LIBS = -L$(LIB) $(SO_LINK_LIBS)
 
 LINK_FIREBIRD = $(LIB_LINK) $(LINK_FIREBIRD_SYMBOLS) $(LIB_LINK_OPTIONS) $(LIB_FIREBIRD_OPTIONS) $(UNDEF_FLAGS)\
- $(call LIB_LINK_SONAME,$(LibrarySoName)) $(call LIB_LINK_RPATH,lib)
+ $(call LIB_LINK_SONAME,$(LibrarySoName)) $(call LIB_LINK_RPATH,lib) $(call LIB_LINK_IMPLIB,$(LIB)/lib$(LibraryBaseName).a)
 LINK_FIREBIRD_LIBS = -L$(LIB) $(LIB_GUI) $(SO_LINK_LIBS) $(MATHLIB)
 
 LINK_ENGINE = $(LIB_LINK) $(LINK_PLUGIN_SYMBOLS) $(LIB_LINK_OPTIONS) $(LIB_FIREBIRD_OPTIONS) $(UNDEF_FLAGS)\
