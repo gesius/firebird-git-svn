@@ -375,7 +375,7 @@ utilities: firebird_server fb_lock_print fbguard fbsvcmgr fbtracemgr gbak gfix g
 firebird_server:	$(FB_DAEMON)
 
 $(FB_DAEMON):	$(Remote_Server_Objects) $(COMMON_LIB)
-	$(EXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ $(FIREBIRD_LIBRARY_LINK) $(LINK_LIBS)
+	$(EXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ $(FIREBIRD_LIBRARY_LINK) $(LINK_LIBS) $(LIB_GUI)
 
 fb_lock_print:	$(LOCKPRINT)
 
@@ -385,7 +385,7 @@ $(LOCKPRINT):	$(LOCKPRINT_Objects) $(COMMON_LIB)
 fbguard:		$(FBGUARD)
 
 $(FBGUARD):		$(FBGUARD_Objects) $(COMMON_LIB)
-	$(EXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ $(FIREBIRD_LIBRARY_LINK) $(LINK_LIBS)
+	$(EXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ $(FIREBIRD_LIBRARY_LINK) $(LINK_LIBS) $(LIB_GUI)
 
 fbsvcmgr:		$(FBSVCMGR)
 
