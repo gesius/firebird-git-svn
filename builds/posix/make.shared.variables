@@ -122,7 +122,11 @@ AllObjects += $(LOCKPRINT_Objects)
 
 
 # Guardian
+ifeq ($(PLATFORM),win32)
+FBGUARD_Objects:= $(call dirObjects,iscguard) $(call makeObjects,remote/server/os/win32,chop.cpp)
+else
 FBGUARD_Objects:= $(call dirObjects,utilities/guard)
+endif
 
 AllObjects += $(FBGUARD_Objects)
 
