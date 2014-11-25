@@ -58,8 +58,13 @@ using namespace Firebird;
 
 namespace {
 #if defined(WIN_NT)
+#ifdef __MINGW32__
+const char* const inTemplate = "libicuin%s.dll";
+const char* const ucTemplate = "libicuuc%s.dll";
+#else
 const char* const inTemplate = "icuin%s.dll";
 const char* const ucTemplate = "icuuc%s.dll";
+#endif
 #elif defined(DARWIN)
 //const char* const inTemplate = "/Library/Frameworks/Firebird.framework/Versions/A/Libraries/libicui18n.dylib";
 //const char* const ucTemplate = "/Library/Frameworks/Firebird.framework/versions/A/Libraries/libicuuc.dylib";
