@@ -117,9 +117,9 @@ $(EXAMPLES_DEST)% : $(EXAMPLES_SRC)%
 
 
 $(EXAMPLES_DEST)/employee.fdb:	$(EXAMPLES_DEST)/empbuild$(EXEC_EXT) $(INPUT_Sources) $(EXAMPLES_DEST)/isql$(EXEC_EXT)
-	-$(RM) employee.fdb
-	./empbuild employee.fdb
-	-$(CHMOD_6) employee.fdb
+	-$(RM) $(EXAMPLES_DEST)/employee.fdb
+	$(EXAMPLES_DEST)/empbuild$(EXEC_EXT) $(EXAMPLES_DEST)/employee.fdb
+	-$(CHMOD_6) $(EXAMPLES_DEST)/employee.fdb
 
 # To get past the fact isql is called from the programs, we create a local link
 # to the static one in this directory
@@ -134,16 +134,16 @@ $(EXAMPLES_DEST)/empbuild.c:	$(EXAMPLES_DEST)/empbuild.fdb $(EXAMPLES_DEST)/empb
 
 $(EXAMPLES_DEST)/empbuild.fdb : $(EXAMPLES_DEST)/empddl.sql $(EXAMPLES_DEST)/empbld.sql $(EXAMPLES_DEST)/isql$(EXEC_EXT)
 	-$(RM) $(EXAMPLES_DEST)/empbuild.fdb
-	$(EXAMPLES_DEST)/isql$(EXEC_EXT) -i empbld.sql
+	$(EXAMPLES_DEST)/isql$(EXEC_EXT) -i $(EXAMPLES_DEST)/empbld.sql
 
 # The chain for intlemp.fdb is the same a script file to create an empty database
 # to allow a .e program to be compiled, to then create and populate with data
 # the intlemp.fdb database.
 
 $(EXAMPLES_DEST)/intlemp.fdb:	$(EXAMPLES_DEST)/intlbld$(EXEC_EXT) $(INTL_Sources) $(EXAMPLES_DEST)/isql$(EXEC_EXT)
-	-$(RM) intlemp.fdb
-	./intlbld intlemp.fdb
-	-$(CHMOD_6) intlemp.fdb
+	-$(RM) $(EXAMPLES_DEST)/intlemp.fdb
+	$(EXAMPLES_DEST)/intlbld$(EXEC_EXT) $(EXAMPLES_DEST)/intlemp.fdb
+	-$(CHMOD_6) $(EXAMPLES_DEST)/intlemp.fdb
 
 $(EXAMPLES_DEST)/intlbld$(EXEC_EXT): $(INTLBLD_Objects) $(COMMON_Objects) $(LIBFBSTATIC_A) 
 	$(EXE_LINK) $(LINK_OPTS) $(INTLBLD_Objects) $(COMMON_Objects) -o $@ -L$(LIB) -lfbstatic $(LINK_LIBS) $(ICU_LIBS)
@@ -151,8 +151,8 @@ $(EXAMPLES_DEST)/intlbld$(EXEC_EXT): $(INTLBLD_Objects) $(COMMON_Objects) $(LIBF
 $(EXAMPLES_DEST)/intlbld.c:	$(EXAMPLES_DEST)/intlbuild.fdb $(EXAMPLES_DEST)/intlbld.e
 
 $(EXAMPLES_DEST)/intlbuild.fdb : $(EXAMPLES_DEST)/intlddl.sql $(EXAMPLES_DEST)/intlbld.sql $(EXAMPLES_DEST)/isql$(EXEC_EXT)
-	-$(RM) intlbuild.fdb
-	$(EXAMPLES_DEST)/isql$(EXEC_EXT) -i intlbld.sql
+	-$(RM) $(EXAMPLES_DEST)/intlbuild.fdb
+	$(EXAMPLES_DEST)/isql$(EXEC_EXT) -i $(EXAMPLES_DEST)/intlbld.sql
 
 
 $(EXAMPLES_DEST)/%.sql: $(EXAMPLES_SRC)/empbuild/%.sql

@@ -183,7 +183,7 @@ SHRLIB_FOREIGN_EXT=	$(SHRLIB_EXT)
 
 vpath %.so $(LIB)
 vpath %.a $(LIB)
-vpath %.dll $(LIB)
+vpath %.dll $(BIN)
 
 #_____________________________________________________________________________
 
