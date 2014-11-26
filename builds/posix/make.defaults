@@ -93,6 +93,11 @@ IsProdTypeBuild = @PROD_BUILD_FLG@
 
 CpuType=@CPU_TYPE@
 
+ifeq ($(CpuType), x86_64)
+  BITNESS_SUFFIX := 64
+else
+  BITNESS_SUFFIX := 32
+endif
 PLATFORM=@PLATFORM@
 ifeq (@FIREBIRD_ARCH_TYPE@,classic)
 	ArchPrefix=CS
@@ -193,9 +198,9 @@ BLRTABLE	= $(BIN)/blrtable$(EXEC_EXT)
 #     Scold me, but I don't want library names to be in configure.in
 # 
 
-SharedLibraryName=libfbembed.${SHRLIB_EXT}.${FirebirdVersion}
-SharedLibrarySoName=libfbembed.${SHRLIB_EXT}.${MajorVer}.${MinorVer}
-SharedLibraryBaseName=libfbembed.${SHRLIB_EXT}
+SharedLibraryBaseName=$(LIB_PREFIX)fbembed.${SHRLIB_EXT}
+SharedLibraryName=${SharedLibraryBaseName}.${FirebirdVersion}
+SharedLibrarySoName=${SharedLibraryBaseName}.${MajorVer}.${MinorVer}
 
 LIBFBEMBED_SO = $(LIB)/$(SharedLibraryName)
 LIBFBEMBED_SOBASENAME = $(LIB)/$(SharedLibrarySoName)
@@ -261,6 +266,7 @@ LIB_LINK_RPATH = $(call LIB_PLATFORM_RPATH,'$$$$ORIGIN/../$(1)')
 endif
 LIB_PATH_OPTS = $(call LIB_LINK_RPATH,lib) $(call LIB_LINK_RPATH,intl)
 LIB_LINK_SONAME= -Wl,-soname,$(1)
+LIB_LINK_IMPLIB=
 LIB_LINK_MAPFILE= -Wl,--version-script,
 FBEMBED_LINK= -L$(LIB) -lfbembed
 
@@ -281,7 +287,7 @@ LINK_UDF = $(LIB_LINK) $(LIB_LINK_OPTIONS) $(call LIB_LINK_SONAME,$(1).$(SHRLIB_
 LINK_UDF_LIBS = $(THR_LIBS) -L$(LIB) -lib_util
 
 LINK_IB_UTIL = $(LIB_LINK) $(LINK_IBUTIL_SYMBOLS) $(LIB_LINK_OPTIONS)\
- $(call LIB_LINK_SONAME,$(IbUtilLibraryName)) $(call LIB_LINK_RPATH,lib)
+ $(call LIB_LINK_IMPLIB,$(LIB)/lib$(IbUtilLibraryName).a) $(call LIB_LINK_SONAME,$(IbUtilLibraryName)) $(call LIB_LINK_RPATH,lib)
 LINK_IB_UTIL_LIBS = $(THR_LIBS)
 
 LINK_INTL = $(LIB_LINK) $(LINK_FBINTL_SYMBOLS) $(LIB_LINK_OPTIONS)\
@@ -293,11 +299,11 @@ LINK_TRACE = $(LIB_LINK) $(LINK_TRACE_SYMBOLS) $(LIB_LINK_OPTIONS)\
 LINK_TRACE_LIBS = -L$(LIB) $(SO_LINK_LIBS)
 
 LINK_CLIENT = $(CLIENTLIB_LINK) $(LINK_FIREBIRD_CLIENT_SYMBOLS) $(LIB_LINK_OPTIONS)\
- $(LIB_LINK_IMPLIB) $(call LIB_LINK_SONAME,$(ClientLibrarySoName)) $(call LIB_LINK_RPATH,lib)
+ $(call LIB_LINK_IMPLIB,$(LIB)/lib$(ClientLibraryName).a) $(call LIB_LINK_SONAME,$(ClientLibrarySoName)) $(call LIB_LINK_RPATH,lib)
 LINK_CLIENT_LIBS = $(SO_LINK_LIBS) $(STATIC_CXXSUPPORT_LIB)
 
 LINK_EMBED = $(LIB_LINK) $(LINK_FIREBIRD_EMBED_SYMBOLS) $(LIB_LINK_OPTIONS) $(LIB_EMBED_LINK_OPTIONS)\
- $(call LIB_LINK_SONAME,$(SharedLibrarySoName)) $(call LIB_LINK_RPATH,lib)
+ $(call LIB_LINK_IMPLIB,$(LIB)/lib$(SharedLibraryBaseName).a) $(call LIB_LINK_SONAME,$(SharedLibrarySoName)) $(call LIB_LINK_RPATH,lib)
 LINK_EMBED_LIBS = -L$(LIB) $(LIB_GUI) $(SO_LINK_LIBS) $(ICU_LIBS)
 
 # From utilities 
