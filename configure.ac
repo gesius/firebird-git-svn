@@ -1195,6 +1195,7 @@ if test "x$CROSS" != "x"; then
 AC_CONFIG_FILES([gen/make.crossPlatform:builds/posix/make.$CROSS])
 fi
 
+if test "$PLATFORM" != "win32"; then
 AC_CONFIG_FILES([
 gen/Release/firebird/bin/fb_config:builds/install/posix-common/fb_config.in
 gen/Release/firebird/bin/posixLibrary.sh:builds/install/posix-common/posixLibrary.sh.in
@@ -1208,8 +1209,9 @@ gen/Release/firebird/bin/taruninstall.sh:builds/install/posix-common/taruninstal
 gen/Release/firebird/bin/tarMainUninstall.sh:builds/install/posix-common/tarMainUninstall.sh.in
 gen/Release/firebird/bin/changeServerMode.sh:builds/install/posix-common/changeServerMode.sh.in
 gen/Release/firebird/bin/registerDatabase.sh:builds/install/posix-common/registerDatabase.sh.in
-gen/vers.sh:builds/posix/vers.sh.in
 ])
+fi
+AC_CONFIG_FILES(gen/vers.sh:builds/posix/vers.sh.in)
 
 dnl: Platform Specific Files
 
@@ -1303,6 +1305,11 @@ case "$PLATFORM" in
     ;;
 
   DARWIN)
+    ;;
+  win32)
+    AC_CONFIG_FILES(gen/install/install_classic.bat:builds/install/arch-specific/win32/install_classic.bat
+                     gen/install/install_super.bat:builds/install/arch-specific/win32/install_super.bat
+                     gen/install/uninstall.bat:builds/install/arch-specific/win32/uninstall.bat)
     ;;
 esac
 if test -f ${MAKE_SRC_DIR}/postfix.${MAKEFILE_POSTFIX};then
