@@ -581,7 +581,7 @@ FBUDF_API void getExactTimestamp(ISC_TIMESTAMP* rc)
 #if defined(HAVE_LOCALTIME_R)
 	tm* times = localtime_r(&seconds, &timex);
 #else
-	timeMutex.enter();
+	timeMutex.enter(FB_FUNCTION);
 	tm* times = localtime(&seconds);
 	if (times)
 	{
@@ -628,7 +628,7 @@ FBUDF_API void getExactTimestampUTC(ISC_TIMESTAMP* rc)
 #if defined(HAVE_GMTIME_R)
 	tm* times = gmtime_r(&seconds, &timex);
 #else
-	timeMutex.enter();
+	timeMutex.enter(FB_FUNCTION);
 	tm* times = gmtime(&seconds);
 	if (times)
 	{
