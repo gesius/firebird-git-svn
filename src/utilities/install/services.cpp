@@ -563,6 +563,7 @@ USHORT SERVICES_grant_access_rights(const char* service_name, const TEXT* accoun
 // Until the fb_assert could be converted to a function/object linked with each module
 // we need this ugly workaround.
 //
+#ifndef __MINGW32__
 extern "C" void API_ROUTINE gds__log(const TEXT* text, ...)
 {
 	va_list ptr;
@@ -572,6 +573,7 @@ extern "C" void API_ROUTINE gds__log(const TEXT* text, ...)
 	va_end(ptr);
 	printf("\n\n");
 }
+#endif
 
 //
 // EOF
