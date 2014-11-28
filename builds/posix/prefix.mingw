@@ -39,7 +39,8 @@ LIB_GUI:= -mwindows -lcomctl32 -lgdi32
 # Add resources to some files
 FilesToAddVersionInfo=$(FBTRACEMGR) $(LIBFIREBIRD_FULLNAME) $(ENGINE_SONAME) $(LIBFBINTL_SO) \
  $(FBSVCMGR) $(FBTRACEMGR) $(FBTRACE) $(FBUDF_SO) $(LIBIBUTIL_SO) \
- $(GBAK) $(GFIX) $(GPRE) $(GSEC) $(GSPLIT) $(GSTAT) $(QLI) $(ISQL) $(NBACKUP)
+ $(GBAK) $(GFIX) $(GPRE) $(GSEC) $(GSPLIT) $(GSTAT) $(QLI) $(ISQL) $(NBACKUP) \
+ $(INSTCLI) $(INSTREG) $(INSTSVC)
 # TODO: guardians also must be here
 FilesToAddDialog=$(FB_DAEMON)
 FilesToAddDialog2=$(FBGUARD)

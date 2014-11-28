@@ -356,6 +356,7 @@ GDS_INSTALL	= $(BIN)/gds_install_service$(EXEC_EXT)
 FBGUARD		= $(BIN)/fbguard$(EXEC_EXT)
 IBGUARD		= $(BIN)/ibguard$(EXEC_EXT)
 FBMGR_BIN	= $(BIN)/fbmgr.bin$(EXEC_EXT)
+INSTCLI		= $(BIN)/instclient$(EXEC_EXT)
 INSTREG		= $(BIN)/instreg$(EXEC_EXT)
 INSTSVC		= $(BIN)/instsvc$(EXEC_EXT)
 

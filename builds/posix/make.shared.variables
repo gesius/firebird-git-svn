@@ -220,3 +220,12 @@ AllObjects += $(CODES_Objects)
 BUILD_Objects:= $(call makeObjects,msgs,build_file.epp)
 
 AllObjects += $(BUILD_Objects)
+
+# Install helpers
+ifeq ($(PLATFORM),win32)
+INSTCLIENT_Objects:= $(call makeObjects,utilities/install,install.cpp install_client.cpp)
+INSTREG_Objects:= $(call makeObjects,utilities/install,install_reg.cpp registry.cpp)
+INSTSVC_Objects:= $(call makeObjects,utilities/install,install_svc.cpp services.cpp)
+
+AllObjects += $(INSTCLIENT_Objects) $(INSTREG_Objects) $(INSTSVC_Objects)
+endif

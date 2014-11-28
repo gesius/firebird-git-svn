@@ -168,6 +168,9 @@ endif
 	$(MAKE) plugins
 	$(MAKE) examples
 	$(MAKE) rest
+ifeq ($(PLATFORM), win32)
+	$(MAKE) helpers
+endif
 
 
 cross_process:
@@ -432,6 +435,29 @@ nbackup:		$(NBACKUP)
 $(NBACKUP):		$(NBACKUP_Objects) $(COMMON_LIB)
 	$(EXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ $(FIREBIRD_LIBRARY_LINK) $(LINK_LIBS)
 
+
+#___________________________________________________________________________
+# install helpers - utilities for Windows to install/uninstall services and etc
+#
+
+.PHONY:	instclient instreg instsvc
+
+helpers: instclient instreg instsvc
+
+instclient: $(INSTCLI)
+
+$(INSTCLI):	$(INSTCLIENT_Objects)
+	$(STATICEXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ -L$(LIB) $(LINK_LIBS)
+
+instreg: $(INSTREG)
+
+$(INSTREG):	$(INSTREG_Objects)
+	$(STATICEXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ -L$(LIB) $(LINK_LIBS)
+
+instsvc: $(INSTSVC)
+
+$(INSTSVC):	$(INSTSVC_Objects) $(YValve_Objects) $(Common_Objects) $(Remote_Client_Objects)
+	$(STATICEXE_LINK) $(EXE_LINK_OPTIONS) $^ -o $@ -L$(LIB) $(LINK_LIBS) $(MATHLIB)
 
 #___________________________________________________________________________
 # plugins - some of them are required to build examples, use separate entry for them
