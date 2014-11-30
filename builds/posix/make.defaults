@@ -202,7 +202,7 @@ include $(ROOT)/gen/Make.Version
 
 vpath %.so $(LIB)
 vpath %.a $(LIB)
-vpath %.dll $(LIB)
+vpath %.dll $(BIN)
 
 #_____________________________________________________________________________
 
