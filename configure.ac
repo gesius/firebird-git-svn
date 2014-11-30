@@ -679,6 +679,16 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 LT_INIT([dlopen win32-dll])
+if test $PLATFORM = win32; then
+  # Checks for mingw resource compiler.
+  AC_CHECK_PROGS([RC],
+     [$target-windres \
+      windres])
+  
+  if test -z "${RC}"; then
+    AC_MSG_ERROR(windres command is not found.);
+  fi
+fi
 
 dnl Check for system header files
 AC_HEADER_DIRENT

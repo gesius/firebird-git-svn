@@ -151,9 +151,11 @@ ECHO=			echo
 QUIET_ECHO=		@echo
 CD=			cd
 CAT=			cat
-AR=			ar @AR_OPTIONS@
+AR=			@AR@ @AR_OPTIONS@
 LN=			@LN_S@
+DLLTOOL=			@DLLTOOL@
 RANLIB=			@RANLIB@
+RC=			@RC@
 BTYACC=$(ROOT)/extern/btyacc/btyacc
 CLOOP=$(GEN_ROOT)/$(TARGET)/cloop/release/bin/cloop
 
