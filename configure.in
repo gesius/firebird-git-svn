@@ -684,6 +684,16 @@ AC_LIBTOOL_DLOPEN
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
+if test $PLATFORM = win32; then
+  # Checks for mingw resource compiler.
+  AC_CHECK_PROGS([RC],
+     [$target-windres \
+      windres])
+
+  if test -z "${RC}"; then
+    AC_MSG_ERROR(windres command is not found.);
+  fi
+fi
 
 dnl Check for system header files
 AC_HEADER_DIRENT

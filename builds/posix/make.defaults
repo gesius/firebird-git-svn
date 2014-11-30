@@ -139,9 +139,11 @@ ECHO=			echo
 QUIET_ECHO=		@echo
 CD=			cd
 CAT=			cat
-AR=			ar @AR_OPTIONS@ crsu
+AR=			@AR@ @AR_OPTIONS@ crsu
 LN=			@LN_S@
+DLLTOOL=			@DLLTOOL@
 RANLIB=			@RANLIB@
+RC=			@RC@
 BTYACC=$(ROOT)/extern/btyacc/btyacc
 
 CC =	@CC@
