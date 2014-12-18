@@ -548,7 +548,7 @@ int Parser::yylexAux()
 		mark.str = yylval.intlStringPtr;
 		strMarks.put(mark.str, mark);
 
-		return STRING;
+		return TOK_STRING;
 	}
 
 	/*
@@ -676,7 +676,7 @@ int Parser::yylexAux()
 
 			yylval.intlStringPtr = newIntlString(temp, "BINARY");
 
-			return STRING;
+			return TOK_STRING;
 		}  // if (!hexerror)...
 
 		// If we got here, there was a parsing error.  Set the
@@ -731,7 +731,7 @@ int Parser::yylexAux()
 				mark.str = yylval.intlStringPtr;
 				strMarks.put(mark.str, mark);
 
-				return STRING;
+				return TOK_STRING;
 			}
 		}
 

@@ -89,7 +89,7 @@ enum token_vals {
 	TOKEN_TOO_LONG = -2,
 	UNEXPECTED_END_OF_COMMAND = -3,
 	UNEXPECTED_TOKEN = -4,
-	STRING = 257,
+	TOK_STRING = 257,
 	NUMERIC = 258,
 	SYMBOL = 259
 };
@@ -112,7 +112,7 @@ static NoCaseString getToken(unsigned& pos, const Tokens& toks, int symbol = SYM
 	case SYMBOL:
 		break;
 
-	case STRING:
+	case TOK_STRING:
 		if (!strchr(quotes, toks[pos].text[0]))
 			generate_error(curTok, UNEXPECTED_TOKEN);
 		return toks[pos++].stripped().ToNoCaseString();
@@ -186,7 +186,7 @@ bool PREPARSE_execute(CheckStatusWrapper* status, Why::YAttachment** ptrAtt,
 			return false;
 		}
 
-		PathName file_name(getToken(pos, tks, STRING).ToPathName());
+		PathName file_name(getToken(pos, tks, TOK_STRING).ToPathName());
 		*stmt_eaten = false;
 		ClumpletWriter dpb(ClumpletReader::Tagged, MAX_DPB_SIZE, isc_dpb_version1);
 
@@ -235,7 +235,7 @@ bool PREPARSE_execute(CheckStatusWrapper* status, Why::YAttachment** ptrAtt,
 						break;
 
 					case PP_PASSWORD:
-						token = getToken(pos, tks, STRING);
+						token = getToken(pos, tks, TOK_STRING);
 
 						dpb.insertString(isc_dpb_password, token.ToString());
 						matched = true;
@@ -252,7 +252,7 @@ bool PREPARSE_execute(CheckStatusWrapper* status, Why::YAttachment** ptrAtt,
 						token = getToken(pos, tks);
 						if (token != pp_symbols[PP_NAMES].symbol)
 							generate_error(token, UNEXPECTED_TOKEN);
-						token = getToken(pos, tks, STRING);
+						token = getToken(pos, tks, TOK_STRING);
 
 						dpb.insertString(isc_dpb_lc_ctype, token.ToString());
 						matched = true;

@@ -336,7 +336,7 @@ using namespace Firebird;
 %token <metaNamePtr> SYMBOL
 %token <int32Val> NUMBER
 
-%token <intlStringPtr> STRING
+%token <intlStringPtr> TOK_STRING
 %token <metaNamePtr> INTRODUCER
 
 // New tokens added v5.0
@@ -3208,7 +3208,7 @@ err($exceptionArray)
 			item.type = ExceptionItem::SQL_CODE;
 			item.code = $2;
 		}
-	| SQLSTATE STRING
+	| SQLSTATE TOK_STRING
 		{
 			ExceptionItem& item = $exceptionArray->add();
 			item.type = ExceptionItem::SQL_STATE;
@@ -6393,7 +6393,7 @@ map_from_symbol_name
 
 %type <intlStringPtr> map_logoninfo
 map_logoninfo
-	: STRING
+	: TOK_STRING
 	| valid_symbol_name		{ $$ = newNode<IntlString>($1->c_str()); }
 	;
 
@@ -6641,7 +6641,7 @@ u_constant
 	: u_numeric_constant
 	| sql_string
 		{ $$ = MAKE_str_constant($1, lex.att_charset); }
-	| DATE STRING
+	| DATE TOK_STRING
 		{
 			if (client_dialect < SQL_DIALECT_V6_TRANSITION)
 			{
@@ -6657,7 +6657,7 @@ u_constant
 			}
 			$$ = MAKE_constant($2->getString().c_str(), CONSTANT_DATE);
 		}
-	| TIME STRING
+	| TIME TOK_STRING
 		{
 			if (client_dialect < SQL_DIALECT_V6_TRANSITION)
 			{
@@ -6673,7 +6673,7 @@ u_constant
 			}
 			$$ = MAKE_constant($2->getString().c_str(), CONSTANT_TIME);
 		}
-	| TIMESTAMP STRING
+	| TIMESTAMP TOK_STRING
 		{ $$ = MAKE_constant($2->getString().c_str(), CONSTANT_TIMESTAMP); }
 		;
 
@@ -6717,8 +6717,8 @@ internal_info
 
 %type <intlStringPtr> sql_string
 sql_string
-	: STRING					// string in current charset
-	| INTRODUCER STRING			// string in specific charset
+	: TOK_STRING					// string in current charset
+	| INTRODUCER TOK_STRING			// string in specific charset
 		{
 			$$ = $2;
 			$$->setCharSet(*$1);
