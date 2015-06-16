@@ -98,7 +98,7 @@ if (XCODE)
         string(TOUPPER ${conf} conf2)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${conf2} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${conf}/bin)
     endforeach()
-elseif (UNIX)
+elseif (UNIX OR MINGW)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${output_dir}/bin)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${output_dir}/bin)
 endif()
@@ -113,7 +113,7 @@ endif()
 # icu
 ########################################
 
-if (UNIX)
+if (UNIX OR MINGW)
     if (NOT ICU_INCLUDE_DIR)
         find_path(ICU_INCLUDE_DIR unicode/ucnv.h
             PATHS
@@ -160,7 +160,9 @@ set(FB_SERVICE_NAME "gds_db")
 set(FB_SERVICE_PORT 3050)
 
 if (WIN32)
+  if (NOT MINGW)
     set(FB_PREFIX "c:\\\\Program Files\\\\Firebird\\\\")
+  endif()
     set(FB_IPC_NAME "FIREBIRD")
 endif()
 
@@ -193,7 +195,7 @@ if (WIN32)
         endif()
     endif(MSVC)
 
-    set(LIB_Ws2_32 Ws2_32)
+    set(LIB_Ws2_32 ws2_32)
     set(LIB_comctl32 comctl32)
     set(LIB_mpr mpr)
     set(LIB_version version)
@@ -251,7 +253,7 @@ endif()
 #
 ################################################################################
 
-if (WIN32)
+if (MSVC)
     # icu
     if (NOT ICU_EXTRACT)
         message(STATUS "Extracting pre-built ICU")

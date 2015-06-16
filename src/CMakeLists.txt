@@ -852,7 +852,7 @@ project_group               (boot_isql Boot)
 
 endif() # if (NOT CMAKE_CROSSCOMPILING)
 
-if (WIN32)
+if (MSVC)
     add_custom_command(
         TARGET boot_isql
         POST_BUILD
